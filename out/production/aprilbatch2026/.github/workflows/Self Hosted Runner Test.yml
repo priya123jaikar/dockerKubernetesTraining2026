@@ -1,0 +1,29 @@
+name: Self Hosted Runner Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create-files:
+    runs-on: self-hosted
+
+    steps:
+      - name: Create Folder1
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Path "C:\Folder1" -Force
+
+      - name: Create File1
+        shell: powershell
+        run: |
+          "Hello from File1" | Out-File "C:\Folder1\File1.txt"
+
+      - name: Create Folder2
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Path "C:\Folder1\Folder2" -Force
+
+      - name: Create File2
+        shell: powershell
+        run: |
+          "Hello from File2" | Out-File "C:\Folder1\Folder2\File2.txt"
