@@ -1,0 +1,42 @@
+name: Build Java Jar and Publish Artifact
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Hello.java'
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Create Manifest File
+        run: |
+          echo "Main-Class: Hello" > manifest.txt
+
+      - name: Compile Java Source
+        run: |
+          javac Hello.java
+
+      - name: Create Runnable JAR
+        run: |
+          jar cfm Hello.jar manifest.txt Hello.class
+
+      - name: Upload JAR Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hello-jar
+          path: Hello.jar
