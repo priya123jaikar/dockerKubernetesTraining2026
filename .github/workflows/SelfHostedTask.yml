@@ -1,0 +1,30 @@
+# This is a basic workflow to help you get started with Actions
+
+name: selfHostedTask
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create Folder1 and File1
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Path "C:\Folder1" -Force
+          "This is File1" | Out-File "C:\Folder1\File1.txt"
+
+      - name: Create Folder2 and File2
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Path "C:\Folder1\Folder2" -Force
+          "This is File2" | Out-File "C:\Folder1\Folder2\File2.txt"
