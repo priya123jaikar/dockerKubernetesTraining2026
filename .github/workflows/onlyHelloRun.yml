@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'Hello.java'
+
   workflow_dispatch:
 
 jobs:
