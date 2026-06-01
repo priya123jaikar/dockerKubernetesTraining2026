@@ -4,7 +4,7 @@ public class Hello {
         System.out.println("=================");
 
         int a = 10;
-        int b = 20;
+        int b = 30;
         int sum = add(a, b);
 
         System.out.println("a = " + a);
