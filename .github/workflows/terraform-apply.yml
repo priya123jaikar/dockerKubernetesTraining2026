@@ -39,12 +39,6 @@ jobs:
           aws sts get-caller-identity || echo "ERROR: Credentials not loaded!"
           aws --version
 
-      - name: Install AWS CLI (optional)
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y awscli
-          aws --version
-
       - name: Terraform Init
         run: terraform init
 
