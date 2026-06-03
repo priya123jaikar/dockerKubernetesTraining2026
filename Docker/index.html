@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Priya's Landing Page</title>
+	<style>
+		:root {
+			--bg-1: #fff7ed;
+			--bg-2: #fde68a;
+			--bg-3: #fca5a5;
+			--card: rgba(255, 255, 255, 0.88);
+			--text: #1f2937;
+			--muted: #4b5563;
+			--accent: #ea580c;
+			--accent-2: #dc2626;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 24px;
+			font-family: "Trebuchet MS", "Segoe UI", Tahoma, sans-serif;
+			color: var(--text);
+			background: radial-gradient(circle at 10% 20%, var(--bg-2), transparent 35%),
+				radial-gradient(circle at 90% 10%, var(--bg-3), transparent 30%),
+				linear-gradient(135deg, var(--bg-1), #ffe4e6);
+		}
+
+		.panel {
+			width: min(720px, 100%);
+			background: var(--card);
+			border: 1px solid rgba(255, 255, 255, 0.6);
+			backdrop-filter: blur(6px);
+			border-radius: 20px;
+			padding: 32px;
+			box-shadow: 0 20px 40px rgba(217, 119, 6, 0.2);
+		}
+
+		h1 {
+			margin: 0 0 8px;
+			font-size: clamp(2rem, 4vw, 3rem);
+			letter-spacing: 0.02em;
+		}
+
+		p {
+			margin: 0 0 18px;
+			line-height: 1.6;
+			color: var(--muted);
+		}
+
+		.name {
+			display: inline-block;
+			padding: 4px 12px;
+			margin-bottom: 14px;
+			border-radius: 999px;
+			font-size: 0.9rem;
+			font-weight: 700;
+			color: #7c2d12;
+			background: #ffedd5;
+		}
+
+		.actions {
+			display: flex;
+			gap: 12px;
+			flex-wrap: wrap;
+		}
+
+		button {
+			border: 0;
+			border-radius: 10px;
+			padding: 11px 18px;
+			font-weight: 600;
+			color: #fff;
+			background: var(--accent);
+			cursor: pointer;
+			transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+		}
+
+		button:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 10px 20px rgba(234, 88, 12, 0.28);
+			background: var(--accent-2);
+		}
+
+		.outline {
+			background: transparent;
+			color: #9a3412;
+			border: 1px solid #fdba74;
+		}
+
+		.outline:hover {
+			background: #fff7ed;
+			box-shadow: none;
+		}
+
+		@media (max-width: 640px) {
+			.panel {
+				padding: 24px;
+				border-radius: 16px;
+			}
+
+			h1 {
+				font-size: 1.8rem;
+			}
+		}
+	</style>
+</head>
+<body>
+	<main class="panel">
+		<div class="name">Welcome Priya</div>
+		<h1>Priya's Stylish Web Page</h1>
+		<p>
+			A brighter and more attractive starter page with a personalized touch.
+			You can use this as your landing page template and keep customizing it.
+		</p>
+		<div class="actions">
+			<button onclick="alert('Hello Priya! Great to see your page live.')">Say Hello</button>
+			<button class="outline" onclick="alert('Keep building, Priya!')">Motivate Me</button>
+		</div>
+	</main>
+</body>
+</html>
