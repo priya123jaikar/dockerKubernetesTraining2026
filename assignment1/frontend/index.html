@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assignment 1 App</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Inventory Dashboard</h1>
+      <p class="subtitle">Frontend + Backend + MySQL using Docker</p>
+
+      <section class="panel">
+        <h2>Add Product</h2>
+        <form id="product-form">
+          <input id="name" type="text" placeholder="Product name" required />
+          <input id="quantity" type="number" min="0" placeholder="Quantity" required />
+          <button type="submit">Add</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>Products</h2>
+        <button id="refresh">Refresh List</button>
+        <ul id="product-list"></ul>
+      </section>
+
+      <p id="status"></p>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
