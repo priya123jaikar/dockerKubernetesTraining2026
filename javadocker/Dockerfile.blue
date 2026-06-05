@@ -1,0 +1,25 @@
+# Dockerfile for BLUE Environment (Version 1.0)
+FROM eclipse-temurin:11-jre-alpine
+
+WORKDIR /app
+
+# Copy Java application
+COPY HelloWebServer.java .
+
+# Copy BLUE HTML file
+COPY index-blue.html ./index.html
+
+# Compile Java application
+RUN apk add --no-cache openjdk11 && \
+    javac HelloWebServer.java
+
+# Expose port
+EXPOSE 8080
+
+# Labels for identification
+LABEL version="1.0" \
+      environment="blue" \
+      app="java-web"
+
+# Run the application
+CMD ["java", "HelloWebServer"]

@@ -1,0 +1,44 @@
+# Docker Compose file for Blue-Green Deployment
+
+version: '3.8'
+
+services:
+  # BLUE Environment - Production
+  java-web-blue:
+    build:
+      context: .
+      dockerfile: Dockerfile.blue
+    container_name: java-web-blue
+    ports:
+      - "8080:8080"
+    environment:
+      - VERSION=1.0
+      - ENVIRONMENT=blue
+    labels:
+      - "app=java-web"
+      - "version=blue"
+    networks:
+      - java-web-network
+    restart: unless-stopped
+
+  # GREEN Environment - New Release
+  java-web-green:
+    build:
+      context: .
+      dockerfile: Dockerfile.green
+    container_name: java-web-green
+    ports:
+      - "8081:8080"
+    environment:
+      - VERSION=2.0
+      - ENVIRONMENT=green
+    labels:
+      - "app=java-web"
+      - "version=green"
+    networks:
+      - java-web-network
+    restart: unless-stopped
+
+networks:
+  java-web-network:
+    driver: bridge

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Java Web App - GREEN Environment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            text-align: center;
+            animation: fadeIn 0.5s ease-in;
+        }
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 60px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            animation: slideUp 0.6s ease-out;
+        }
+        .emoji {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #28a745;
+            font-size: 48px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        .version {
+            color: #666;
+            font-size: 20px;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+        .description {
+            color: #999;
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 20px 0;
+        }
+        .status {
+            color: white;
+            background: #ffc107;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 30px;
+            font-size: 18px;
+            color: #333;
+        }
+        .badge {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin: 10px 5px;
+            font-weight: 600;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .info {
+            background: #f0fff4;
+            padding: 20px;
+            border-left: 4px solid #28a745;
+            border-radius: 5px;
+            margin-top: 30px;
+            text-align: left;
+            color: #333;
+        }
+        .info p {
+            margin: 10px 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="emoji">🟢</div>
+            <h1>GREEN Environment</h1>
+            <div class="version">Version: 2.0</div>
+            <div class="badge">New Release</div>
+            <p class="description">This is the standby GREEN deployment ready for testing</p>
+            <div class="status">⧗ WAITING TO GO LIVE</div>
+            
+            <div class="info">
+                <p><strong>Deployment Name:</strong> java-web-deployment-green</p>
+                <p><strong>Replicas:</strong> 2</p>
+                <p><strong>Image:</strong> Image: priyasocgen/java-web-green:v2.0</p>
+                <p><strong>Status:</strong> Ready for switchover</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

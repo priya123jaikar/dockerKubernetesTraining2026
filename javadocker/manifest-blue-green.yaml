@@ -1,0 +1,172 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: priya
+---
+# BLUE Deployment (Current Production Version)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-web-deployment-blue
+  namespace: priya
+  labels:
+    app: java-web
+    version: blue
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: java-web
+      version: blue
+  template:
+    metadata:
+      labels:
+        app: java-web
+        version: blue
+    spec:
+      containers:
+        - name: java-web
+          image: priyasocgen/java-web-blue:v1.0
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+---
+# GREEN Deployment (New Version - Ready for Testing)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-web-deployment-green
+  namespace: priya
+  labels:
+    app: java-web
+    version: green
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: java-web
+      version: green
+  template:
+    metadata:
+      labels:
+        app: java-web
+        version: green
+    spec:
+      containers:
+        - name: java-web
+          image: priyasocgen/java-web-green:v2.0
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+---
+# Main Service - Routes to BLUE (Active Environment)
+apiVersion: v1
+kind: Service
+metadata:
+  name: java-web-service
+  namespace: priya
+spec:
+  type: LoadBalancer
+  selector:
+    app: java-web
+    version: blue  # Switch to 'green' for deployment
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+# Internal Service for GREEN Testing
+apiVersion: v1
+kind: Service
+metadata:
+  name: java-web-service-green
+  namespace: priya
+spec:
+  type: ClusterIP
+  selector:
+    app: java-web
+    version: green
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+# ConfigMap for BLUE Version
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: blue-config
+  namespace: priya
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Java Web App - BLUE Environment</title>
+        <style>
+            body { background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%); margin: 0; padding: 0; font-family: Arial, sans-serif; }
+            .container { display: flex; justify-content: center; align-items: center; height: 100vh; }
+            .card { background: white; border-radius: 10px; padding: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center; }
+            h1 { color: #0066cc; margin: 0; }
+            .version { color: #666; font-size: 18px; margin: 10px 0; }
+            .status { color: #28a745; font-weight: bold; font-size: 16px; margin-top: 20px; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="card">
+                <h1>🔵 BLUE Environment</h1>
+                <p class="version">Version: 1.0 (Current Production)</p>
+                <p>This is the active BLUE deployment</p>
+                <p class="status">✓ Active</p>
+            </div>
+        </div>
+    </body>
+    </html>
+---
+# ConfigMap for GREEN Version
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: green-config
+  namespace: priya
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Java Web App - GREEN Environment</title>
+        <style>
+            body { background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%); margin: 0; padding: 0; font-family: Arial, sans-serif; }
+            .container { display: flex; justify-content: center; align-items: center; height: 100vh; }
+            .card { background: white; border-radius: 10px; padding: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center; }
+            h1 { color: #28a745; margin: 0; }
+            .version { color: #666; font-size: 18px; margin: 10px 0; }
+            .status { color: #ffc107; font-weight: bold; font-size: 16px; margin-top: 20px; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="card">
+                <h1>🟢 GREEN Environment</h1>
+                <p class="version">Version: 2.0 (New Release)</p>
+                <p>This is the standby GREEN deployment</p>
+                <p class="status">⧗ Waiting to go live</p>
+            </div>
+        </div>
+    </body>
+    </html>

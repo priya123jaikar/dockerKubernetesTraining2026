@@ -1,0 +1,25 @@
+# Dockerfile for GREEN Environment (Version 2.0)
+FROM eclipse-temurin:11-jre-alpine
+
+WORKDIR /app
+
+# Copy Java application
+COPY HelloWebServer.java .
+
+# Copy GREEN HTML file
+COPY index-green.html ./index.html
+
+# Compile Java application
+RUN apk add --no-cache openjdk11 && \
+    javac HelloWebServer.java
+
+# Expose port
+EXPOSE 8080
+
+# Labels for identification
+LABEL version="2.0" \
+      environment="green" \
+      app="java-web"
+
+# Run the application
+CMD ["java", "HelloWebServer"]
